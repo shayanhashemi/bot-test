@@ -1,11 +1,15 @@
 from pyrogram import Client
-
+from pyrogram.handlers import MessageHandler
+from pyrogram.errors import RPCError
 app = Client("my_account")
+me="@shayann_hashemi"
 
 
-async def main():
-    async with app:
-        await app.send_message("@shayann_hashemi", "Hi!")
 
+async def my_function(client, message):
+    await message.forward(me)
 
-app.run(main())
+my_handler = MessageHandler(my_function)
+app.add_handler(my_handler)
+
+app.run()
